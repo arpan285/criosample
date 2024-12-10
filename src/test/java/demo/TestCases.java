@@ -19,6 +19,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
+import org.openqa.selenium.support.ui.WebDriverWait; 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
 
 public class TestCases {
     ChromeDriver driver;
@@ -34,7 +37,10 @@ public class TestCases {
         Wrappers.navigate(driver,url);
         Thread.sleep(5000);
 
-       WebElement name =  driver.findElement(By.xpath("//div[@class='rFrNMe k3kHxc RdH0ib yqQS1 zKHdkd']//input"));
+      // WebElement name =  driver.findElement(By.xpath("//div[@class='rFrNMe k3kHxc RdH0ib yqQS1 zKHdkd']//input"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // wait 1
+        WebElement name = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='rFrNMe k3kHxc RdH0ib yqQS1 zKHdkd']//input")));
+        
        String keys = "Crio Learner";
        Wrappers.sendKeys(name, keys);
        Thread.sleep(1000);
@@ -42,6 +48,7 @@ public class TestCases {
         WebElement question =  driver.findElement(By.xpath("//div[@class='Pc9Gce Wic03c']//textarea"));
         long epochTime = System.currentTimeMillis() / 1000;
         String answer = "I want to be the best QA Engineer! "+epochTime;
+        System.out.println(answer);
         Wrappers.sendKeys(question,answer);
         Thread.sleep(1000);
 
@@ -101,7 +108,8 @@ public class TestCases {
             String messageText = successMessage.getText();
             System.out.println("Success Message: " + messageText);
 
-    System.out.println("End TestCase01");
+      
+        System.out.println("End TestCase01");
 
 
     }
